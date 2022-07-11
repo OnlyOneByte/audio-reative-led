@@ -14,6 +14,8 @@ _fps = dsp.ExpFilter(val=config.FPS, alpha_decay=0.2, alpha_rise=0.2)
 """The low-pass filter used to estimate frames-per-second"""
 
 
+
+
 def frames_per_second():
     """Return the estimated frames per second
 
@@ -187,7 +189,13 @@ fft_window = np.hamming(int(config.MIC_RATE / config.FPS) * config.N_ROLLING_HIS
 prev_fps_update = time.time()
 
 
-def microphone_update(audio_samples):
+# Number of audio samples to read every time frame
+samples_per_frame = int(config.MIC_RATE / config.FPS)
+
+# Array containing the rolling audio sample window
+y_roll = np.random.rand(config.N_ROLLING_HISTORY, samples_per_frame) / 1e16
+
+def microphone_update(audio_samples, visualization_effect):
     global y_roll, prev_rms, prev_exp, prev_fps_update
     # Normalize samples between 0 and 1
     y = audio_samples / 2.0**15
@@ -224,15 +232,16 @@ def microphone_update(audio_samples):
         led.pixels = output
         led.update()
         if config.USE_GUI:
-            # Plot filterbank output
-            x = np.linspace(config.MIN_FREQUENCY, config.MAX_FREQUENCY, len(mel))
-            mel_curve.setData(x=x, y=fft_plot_filter.update(mel))
-            # Plot the color channels
-            r_curve.setData(y=led.pixels[0])
-            g_curve.setData(y=led.pixels[1])
-            b_curve.setData(y=led.pixels[2])
-    if config.USE_GUI:
-        app.processEvents()
+            # # Plot filterbank output
+            # x = np.linspace(config.MIN_FREQUENCY, config.MAX_FREQUENCY, len(mel))
+            # mel_curve.setData(x=x, y=fft_plot_filter.update(mel))
+            # # Plot the color channels
+            # r_curve.setData(y=led.pixels[0])
+            # g_curve.setData(y=led.pixels[1])
+            # b_curve.setData(y=led.pixels[2])
+            # TODO: rewrite using matplotlib
+            print("GUI Update goes here")
+            
     
     if config.DISPLAY_FPS:
         fps = frames_per_second()
