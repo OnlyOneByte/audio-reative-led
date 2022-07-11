@@ -11,14 +11,14 @@ import config
 from visualization import visualize_spectrum, visualize_scroll, visualize_energy, microphone_update
 from led import color_wipe
 
+run = True
+
 def runGUI():
     # TODO: rewrite using matplotlib
     print("HI, GUI setup")
 
-endRun = False
 
 if __name__ == '__main__':
-
     if config.USE_GUI:
         runGUI()
 
@@ -53,13 +53,18 @@ if __name__ == '__main__':
 
     # handles exit
     def signal_handler(signal, frame):
-        global endRun
+        global run
         print("Exiting...")
-        endRun = False
+        run = False
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+        led.color_wipe(0)
+        sys.exit(0)
         
     signal.signal(signal.SIGINT, signal_handler)
 
-    while True:
+    while run:
         try:
             y = np.fromstring(stream.read(frames_per_buffer, exception_on_overflow=False), dtype=np.int16).astype(np.float32)
             stream.read(stream.get_read_available(), exception_on_overflow=False)
@@ -69,13 +74,5 @@ if __name__ == '__main__':
             if time.time() > prev_ovf_time + 1:
                 prev_ovf_time = time.time()
                 print('Audio buffer has overflowed {} times'.format(overflows))
-
-        if endRun:
-            break
     
-    # cleanup stuff
-    stream.stop_stream()
-    stream.close()
-    p.terminate()
-    led.color_wipe(0)
 
