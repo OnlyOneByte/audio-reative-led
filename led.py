@@ -11,8 +11,6 @@ strip = Adafruit_NeoPixel(config.N_PIXELS, config.LED_PIN,
                                     config.LED_INVERT, config.BRIGHTNESS)
 strip.begin()
 
-
-stick = blinkstick.find_first()
 # Create a listener that turns the leds off when the program terminates
 signal.signal(signal.SIGTERM, signal_handler)
 signal.signal(signal.SIGINT, signal_handler)
