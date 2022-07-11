@@ -113,11 +113,13 @@ def runGUI():
     # layout.addItem(spectrum_label)
 
 
-run = True
+
 
 
 
 if __name__ == '__main__':
+    run = True
+
     if config.USE_GUI:
         runGUI()
 
@@ -152,13 +154,13 @@ if __name__ == '__main__':
 
     # handles exit
     def signal_handler(signal, frame):
-        global run
         print("Exiting...")
         run = False
         stream.stop_stream()
         stream.close()
         p.terminate()
         led.color_wipe(10)
+        sys.exit(0)
         
     signal.signal(signal.SIGINT, signal_handler)
 
