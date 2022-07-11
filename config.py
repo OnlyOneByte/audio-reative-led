@@ -11,9 +11,10 @@ BRIGHTNESS = 255 # Max brightness of LED strip between 0 and 255
 LED_INVERT = False # Set True if using an inverting logic level converter
 SOFTWARE_GAMMA_CORRECTION = True # Set to True because Raspberry Pi doesn't use hardware dithering
 USE_GUI = False # Whether or not to display a PyQtGraph GUI plot of visualization
-DISPLAY_FPS = True # Whether to display the FPS when running (can reduce performance)
+DISPLAY_FPS = False # Whether to display the FPS when running (can reduce performance)
 N_PIXELS = 300 # Number of pixels in the LED strip
 MIC_RATE = 48000 # Sampling frequency of the microphone in Hz
+FPS = 50 # target update rate.
 _max_led_FPS = int(((N_PIXELS * 30e-6) + 50e-6)**-1.0)
 assert FPS <= _max_led_FPS, 'FPS must be <= {}'.format(_max_led_FPS)
 

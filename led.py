@@ -1,9 +1,10 @@
 from __future__ import print_function
 from __future__ import division
-
+import signal
 import platform
 import numpy as np
 import config
+
 from rpi_ws281x import *
 
 strip = Adafruit_NeoPixel(config.N_PIXELS, config.LED_PIN,
@@ -11,11 +12,6 @@ strip = Adafruit_NeoPixel(config.N_PIXELS, config.LED_PIN,
                                     config.LED_INVERT, config.BRIGHTNESS)
 strip.begin()
 
-
-stick = blinkstick.find_first()
-# Create a listener that turns the leds off when the program terminates
-signal.signal(signal.SIGTERM, signal_handler)
-signal.signal(signal.SIGINT, signal_handler)
 
 _gamma = np.load(config.GAMMA_TABLE_PATH)
 """Gamma lookup table used for nonlinear brightness correction"""
@@ -25,8 +21,6 @@ _prev_pixels = np.tile(253, (3, config.N_PIXELS))
 
 pixels = np.tile(1, (3, config.N_PIXELS))
 """Pixel values for the LED strip"""
-
-_is_python_2 = int(platform.python_version_tuple()[0]) == 2
 
 
 def update():
@@ -55,6 +49,12 @@ def update():
     _prev_pixels = np.copy(p)
     strip.show()
 
+def color_wipe(wait_ms=10):
+    """Wipe color across display a pixel at a time."""
+    for i in range(strip.numPixels()):
+        strip.setPixelColor(i, Color(0, 0, 0))
+        strip.show()
+        time.sleep(wait_ms / 1000.0)
 
 # Execute this file to run a LED strand test
 # If everything is working, you should see a red, green, and blue pixel scroll
@@ -67,6 +67,13 @@ if __name__ == '__main__':
     pixels[1, 1] = 255  # Set 2nd pixel green
     pixels[2, 2] = 255  # Set 3rd pixel blue
     print('Starting LED strand test')
+
+    # handles exit
+    def signal_handler(signal, frame):
+        color_wipe(10)
+        
+    signal.signal(signal.SIGINT, signal_handler)
+
     while True:
         pixels = np.roll(pixels, 1, axis=1)
         update()
