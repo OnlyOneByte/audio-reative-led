@@ -162,6 +162,8 @@ if __name__ == '__main__':
         stream.stop_stream()
         stream.close()
         p.terminate()
+        led.color_wipe(10)
+        
     signal.signal(signal.SIGINT, signal_handler)
 
     while run:

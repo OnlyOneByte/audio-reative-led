@@ -55,6 +55,12 @@ def update():
     _prev_pixels = np.copy(p)
     strip.show()
 
+def color_wipe(wait_ms=10):
+    """Wipe color across display a pixel at a time."""
+    for i in range(strip.numPixels()):
+        strip.setPixelColor(i, Color(0, 0, 0))
+        strip.show()
+        time.sleep(wait_ms / 1000.0)
 
 # Execute this file to run a LED strand test
 # If everything is working, you should see a red, green, and blue pixel scroll
