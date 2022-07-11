@@ -9,7 +9,7 @@ import pyaudio
 import config
 
 from visualization import visualize_spectrum, visualize_scroll, visualize_energy, microphone_update
-from off import color_wipe
+from led import color_wipe
 
 def runGUI():
     print("Using GUI")
