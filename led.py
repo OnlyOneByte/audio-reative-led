@@ -45,8 +45,7 @@ def update():
         if np.array_equal(p[:, i], _prev_pixels[:, i]):
             continue
             
-        #strip.led_data[i] = int(rgb[i])
-    strip.setPixelColor(i, int(rgb[i]))
+        strip.setPixelColor(i, int(rgb[i]))
     _prev_pixels = np.copy(p)
     strip.show()
 

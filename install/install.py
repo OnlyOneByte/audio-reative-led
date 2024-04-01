@@ -21,7 +21,7 @@ def install_dependencies():
 
     print("================== Start Installing Numpy, Scipy, PyAudio, PyQtgraph ==================")
     os.system("sudo apt install python3-numpy python3-scipy python3-pyaudio python3-pyqtgraph -y")
-    os.system("sudo pip3 install numpy scipy==1.4.1 pyaudio pyqtgraph")
+    os.system("sudo pip3 install pyaudio pyqtgraph")
     print("================== Completed Installing Numpy, Scipy, PyAudio, PyQtgraph ==================")
 
     print("================== Start Installing rpi_ws281x ==================")
