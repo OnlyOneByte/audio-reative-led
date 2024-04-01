@@ -38,7 +38,6 @@ if __name__ == '__main__':
     led.update()
 
 
-
     # Start listening to live audio stream
     p = pyaudio.PyAudio()
     frames_per_buffer = int(config.MIC_RATE / config.FPS)

@@ -7,11 +7,11 @@ import os
 LED_PIN = 18 # GPIO pin connected to the LED strip pixels (must support PWM) GPIO 18/ Pin 12 is default
 LED_FREQ_HZ = 800000 # LED signal frequency in Hz (usually 800kHz)
 LED_DMA = 5 # DMA channel used for generating PWM signal (try 5)
-BRIGHTNESS = 255 # Max brightness of LED strip between 0 and 255
+BRIGHTNESS = 200 # Max brightness of LED strip between 0 and 255
 LED_INVERT = False # Set True if using an inverting logic level converter
 SOFTWARE_GAMMA_CORRECTION = True # Set to True because Raspberry Pi doesn't use hardware dithering
 USE_GUI = False # Whether or not to display a PyQtGraph GUI plot of visualization
-DISPLAY_FPS = False # Whether to display the FPS when running (can reduce performance)
+DISPLAY_FPS = True # Whether to display the FPS when running (can reduce performance)
 N_PIXELS = 300 # Number of pixels in the LED strip
 MIC_RATE = 48000 # Sampling frequency of the microphone in Hz
 FPS = 50 # target update rate.

@@ -12,7 +12,7 @@ def install_dependencies():
     print("================== Completed Updating PIP ==================")
 
     print("================== Start Installing Setuptools and Libatlas ==================")
-    os.system("sudo apt install python-setuptools libatlas-base-dev -y")
+    os.system("sudo apt install python3-setuptools libatlas-base-dev -y")
     print("================== Completed Installing Setuptools and Libatlas ==================")
 
     print("================== Start Installing Fortran ==================")
@@ -20,7 +20,7 @@ def install_dependencies():
     print("================== Completed Installing Fortran ==================")
 
     print("================== Start Installing Numpy, Scipy, PyAudio, PyQtgraph ==================")
-    os.system("sudo apt install python-numpy python-scipy python-pyaudio python-pyqtgraph -y")
+    os.system("sudo apt install python3-numpy python3-scipy python3-pyaudio python3-pyqtgraph -y")
     os.system("sudo pip3 install numpy scipy==1.4.1 pyaudio pyqtgraph")
     print("================== Completed Installing Numpy, Scipy, PyAudio, PyQtgraph ==================")
 

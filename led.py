@@ -45,7 +45,8 @@ def update():
         if np.array_equal(p[:, i], _prev_pixels[:, i]):
             continue
             
-        strip._led_data[i] = int(rgb[i])
+        #strip.led_data[i] = int(rgb[i])
+    strip.setPixelColor(i, int(rgb[i]))
     _prev_pixels = np.copy(p)
     strip.show()
 
@@ -70,7 +71,9 @@ if __name__ == '__main__':
 
     # handles exit
     def signal_handler(signal, frame):
+        print("Exit signal received: wiping LEDs and then exiting.")
         color_wipe(10)
+        exit(0)
         
     signal.signal(signal.SIGINT, signal_handler)
 
